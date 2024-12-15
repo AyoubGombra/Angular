@@ -1,0 +1,45 @@
+<form [formGroup]="MenuForm" class="form-container">
+    <div>
+        <label for="title">Title :</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+        />
+        <div *ngIf="MenuForm.get('title')?.invalid && MenuForm.get('title')?.touched" class="error">
+            <small *ngIf="MenuForm.controls.title.hasError('required')" class="error">Le title est requis.</small>
+          </div>
+      </div>
+      <div>
+        <label for="image">Image :</label>
+        <input
+          id="image"
+          type="text"
+          formControlName="image"
+        />
+        <div *ngIf="MenuForm.get('image')?.invalid && MenuForm.get('image')?.touched" class="error">
+            <small *ngIf="MenuForm.controls.image.hasError('required')" class="error">Le image est requis.</small>
+          </div>
+      </div>
+      <div>
+        <label for="description">Description :</label>
+        <input
+          id="description"
+          type="text"
+          formControlName="description"
+        />
+        <div *ngIf="MenuForm.get('description')?.invalid && MenuForm.get('description')?.touched" class="error">
+            <small *ngIf="MenuForm.controls.description.hasError('required')" class="error">Le description est requis.</small>
+            <small *ngIf="MenuForm.controls.description.hasError('minlength')" class="error">Le description doit etre au moins de 10 caractères.</small>
+          </div>
+      </div>
+      <button type="submit" [disabled]="MenuForm.invalid" (click)="addMenu()" >Ajouter</button>
+</form>
+
+<div *ngFor="let menu of ListMenu" class="menu-card">
+    <h2>{{ menu.title }}</h2>
+    <img [src]="menu.image" [alt]="menu.image" class="menu-image"/>
+    <p>{{ menu.description }}</p>
+    <h2>{{ menu.approved }}</h2>
+    <button type="submit" (click)="supp(menu.id)" >Supprimer</button>
+</div>
